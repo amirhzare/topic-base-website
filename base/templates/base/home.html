@@ -3,10 +3,13 @@
 <h1>Home Template</h1>
 
 <div>
+    <a href="create-room">+ room</a>
     <div>
         {% for room in rooms %}
         <div>
-            <h5>{{room.id}}- <a href="{% url 'room' room.id %}">{{room.name}}</a> </h5>
+            <h5>{{room.id}}) <a href="{% url 'room' room.id %}">{{room.name}}</a> </h5>
+            <h6>by @{{room.host}}</h6>
+            <hr>
         </div>
         {% endfor %}
     </div>
