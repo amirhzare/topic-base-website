@@ -30,3 +30,23 @@ def deleteRoom(request, pk):
         room.delete()
         return redirect('home')
     return render(request, 'base/delete.html', {'obj': room})
+
+def editRoom(request, pk):
+    room = Room.objects.get(id=pk)
+    form = RoomForm(request.POST)
+    if request.method == 'POST':
+        if form.is_valid():
+            # Get the cleaned data (values) from the form
+            form_values = form.cleaned_data
+
+            room.host = form_values['host']
+            room.topic = form_values['topic']
+            room.name = form_values['name']
+            room.description = form_values['description']
+            room.save()
+            return redirect('home')
+            
+        else:
+            print("Form is not valid. Please check for errors.")
+    context = {'form': form}
+    return render(request, 'base/edit.html', context)
